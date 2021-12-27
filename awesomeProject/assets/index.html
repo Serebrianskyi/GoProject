@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Members Club</title>
+</head>
+
+<body>
+  <h1>Members Club</h1>
+
+  <form action="/person" method="post">
+    Name:
+    <input type="text" name="name">
+    <br/> Email:
+    <input type="text" name="email">
+    <br/>
+    <br/> Reg. Date:
+    <input type="date" name="regdate">
+    <br/>
+    <input type="submit" value="Submit">
+  </form>
+
+  <!-- 
+    This section of the document specifies the table that will
+    be used to display the list of persons, their email and reg date
+   -->
+   <table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Reg. Date</th>      
+    </tr>
+    <td>Roman Serebrianskyi</td>
+    <td>romas@gmail.com</td>
+    <td>27.10.2021</td>
+    </tr>
+  </table>
+  <br/>
+
+  <script>
+    personTable = document.querySelector("table")   
+    fetch("/person")
+      .then(response => response.json())
+      .then(personList => {
+        personList.forEach(person => {
+          row = document.createElement("tr")
+
+          name = document.createElement("td")
+          name.innerHTML = person.name
+          email = document.createElement("td")
+          email.innerHTML = person.description
+          regdate = document.createElement("td")
+          regdate.innerHTML = person.regdate
+
+          row.appendChild(name)
+          row.appendChild(email)
+          row.appendChild(regdate)
+          personTable.appendChild(row)
+        })
+      })
+  </script>
+</body>
+
+</html>
